@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paper Title — Project Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0f14;
+      --surface: #161a22;
+      --border: #262c38;
+      --accent: #6c8fff;
+      --accent-dim: #3d5acc;
+      --text-primary: #e8eaf0;
+      --text-secondary: #8a93a8;
+      --text-muted: #545c72;
+      --radius: 12px;
+      --section-gap: 100px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* ── HERO ─────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(108,143,255,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(108,143,255,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .venue-badge {
+      display: inline-block;
+      padding: 5px 16px;
+      border: 1px solid var(--accent-dim);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      margin-bottom: 28px;
+      background: rgba(108,143,255,0.08);
+    }
+
+    h1.paper-title {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.2;
+      max-width: 900px;
+      letter-spacing: -0.01em;
+      margin-bottom: 36px;
+    }
+
+    .authors {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      max-width: 700px;
+    }
+
+    .authors a {
+      color: var(--text-primary);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .authors a:hover { color: var(--accent); border-color: var(--accent); }
+
+    .affiliation {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-primary);
+      transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.15s;
+      cursor: pointer;
+    }
+    .btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(108,143,255,0.08);
+      transform: translateY(-1px);
+    }
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    .btn.primary:hover {
+      background: #7d9dff;
+      border-color: #7d9dff;
+      color: #fff;
+    }
+
+    .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      animation: fadeInUp 1.5s ease 1s both;
+    }
+    .scroll-hint::after {
+      content: '';
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, var(--text-muted), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.1); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    /* ── SHARED SECTION STYLES ─────────────────────────────── */
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px var(--section-gap);
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    h2.section-title {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 600;
+      margin-bottom: 28px;
+      color: var(--text-primary);
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      max-width: 900px;
+      margin: 0 auto var(--section-gap);
+    }
+
+    /* ── VIDEO ─────────────────────────────────────────────── */
+    #video .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 */
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    #video .video-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* placeholder for when no YouTube ID is set */
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    .video-placeholder svg { width: 48px; height: 48px; opacity: 0.4; }
+
+    /* ── ABSTRACT ──────────────────────────────────────────── */
+    #abstract #abstract-text {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text-secondary);
+      text-align: justify;
+    }
+
+    /* ── PIPELINE ──────────────────────────────────────────── */
+    #pipeline .pipeline-figure {
+      width: 100%;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      overflow: hidden;
+    }
+    #pipeline .pipeline-figure img {
+      width: 100%;
+      display: block;
+    }
+    #pipeline .pipeline-placeholder {
+      width: 100%;
+      aspect-ratio: 16/7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--text-muted);
+      font-size: 14px;
+      background: var(--surface);
+    }
+    #pipeline .pipeline-placeholder svg { width: 48px; height: 48px; opacity: 0.3; }
+
+    .caption {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 14px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* ── BIBTEX ────────────────────────────────────────────── */
+    #bibtex pre {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      font-family: 'Menlo', 'Monaco', 'Consolas', monospace;
+      font-size: 13px;
+      color: #a8b4d0;
+      line-height: 1.75;
+      overflow-x: auto;
+      tab-size: 2;
+      white-space: pre;
+      position: relative;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      padding: 5px 12px;
+      font-size: 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { color: var(--accent); border-color: var(--accent); }
+    .copy-btn.copied { color: #4caf89; border-color: #4caf89; }
+
+    .bibtex-wrap { position: relative; }
+
+    /* ── FOOTER ────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 40px 24px;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    footer a { color: var(--text-secondary); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    /* ── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      :root { --section-gap: 64px; }
+      .btn { padding: 9px 16px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     HERO — full-screen landing
+════════════════════════════════════════════════ -->
+<section id="hero">
+  <!-- e.g. "CVPR 2025" / "SIGGRAPH 2025 (TOG)" -->
+  <div class="venue-badge">IEEE TVCG (Special Issue on IEEE VR 2026)</div>
+
+  <h1 class="paper-title">
+    What You See Is What You Wear:<br /> Crafting Garments for Diverse Avatars with Consistent Wearing Effects
+  </h1>
+
+  <p class="authors">
+    <a href="https://silvester.wang/">Zan Wang</a><sup>1</sup>,&ensp;
+    <a href="#">Anqi Li</a><sup>1</sup>,&ensp;
+    <a href="https://yixxuan-li.github.io/">Yixuan Li</a><sup>1</sup>,&ensp;
+    <a href="https://liangwei-bit.github.io/web/">Wei Liang</a><sup>1,2*</sup>,&ensp;
+    <a href="#">Bing Ning</a><sup>1,3</sup>
+  </p>
+
+  <p class="affiliation">
+    <sup>1</sup>Beijing Institute of Technology &emsp;
+    <sup>2</sup>Yangtze Delta Region Academy of Beijing Institute of Technology, Jiaxing &emsp;
+    <br />
+    <sup>3</sup>Beijing Institute of Fashion Technology  &emsp;
+    <sup>*</sup>Corresponding author
+  </p>
+
+  <div class="links">
+    <!-- Paper -->
+    <a class="btn primary" href="https://ieeexplore.ieee.org/document/11474760" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+      </svg>
+      Paper
+    </a>
+
+    <!-- Video -->
+    <a class="btn" href="#video">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+      </svg>
+      Video
+    </a>
+  </div>
+
+  <div class="scroll-hint">SCROLL</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════
+     VIDEO — embedded YouTube demo
+════════════════════════════════════════════════ -->
+<section id="video">
+  <p class="section-label">Demo</p>
+  <h2 class="section-title">Video</h2>
+
+  <div class="video-wrapper">
+    <!--
+      Replace YOUR_YOUTUBE_VIDEO_ID with the actual ID from your YouTube URL.
+      e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ  →  ID = dQw4w9WgXcQ
+    -->
+    <!-- <iframe
+      src="https://www.youtube.com/embed/YOUR_YOUTUBE_VIDEO_ID?rel=0"
+      title="Paper Demo Video"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe> -->
+
+    <!-- Remove this placeholder block once the iframe above is uncommented -->
+    <div class="video-placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+      </svg>
+      Replace with your YouTube embed URL
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════
+     ABSTRACT
+════════════════════════════════════════════════ -->
+<section id="abstract">
+  <p class="section-label">Abstract</p>
+  <h2 class="section-title">Abstract</h2>
+
+  <p id="abstract-text">
+    <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod,
+    nisl vel ultricies lacinia, nisl nisl aliquam nisl, nec aliquam nisl nisl sit amet
+    nisl. Pellentesque euismod, nisl vel ultricies lacinia. Replace this placeholder
+    with your paper abstract. -->
+    In immersive VR applications, avatars shape users' identities and social presence. Personalization requires generating realistic outfits for avatars, often specified through a single reference image, while supporting seamless editing, adaptation to diverse avatars, and efficient rendering. Achieving these goals is challenging because VR avatars, even humanoid ones, exhibit substantial variations in body shapes and topologies. This inherent diversity makes it difficult to collect sufficient paired data, impeding the evolution of generalizable end-to-end image-to-garment models. To this end, we propose Tailor, a two-stage framework that dresses 3D humanoid avatars from a single reference image while preserving the wearing effects observed in the image. In the first stage, Tailor leverages a structured garment representation based on sewing patterns, enabling the network to predict garments in a low-dimensional, interpretable, and topology-independent space. In the second stage, Tailor performs instance-specific optimization to adapt the predicted sewing pattern to the avatar, ensuring consistent wearing effects across varying avatars. Furthermore, this framework also enables seamless garment editing, on-the-fly adaptation, and real-time rendering, making it particularly suitable for large-scale VR environments. Extensive experiments demonstrate that Tailor achieves results comparable to professional manual designs and produces garments that are both visually appealing and better aligned with reference styles than those generated by naive pattern-scaling baselines, as validated through human perceptual studies.
+  </p>
+  <!-- <br />
+  <p>
+    Add a second paragraph here if needed to break up the abstract into readable chunks.
+    Vivamus lacinia odio vitae vestibulum vestibulum. Donec in efficitur leo, in commodo
+    odio. Sed aliquam purus ut neque ullamcorper, quis dignissim nisi malesuada.
+  </p> -->
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════
+     PIPELINE / METHOD FIGURE
+════════════════════════════════════════════════ -->
+<section id="pipeline">
+  <p class="section-label">Method</p>
+  <h2 class="section-title">Pipeline</h2>
+
+  <div class="pipeline-figure">
+    <img src="/images/overview.png" alt="Method pipeline overview" />
+  </div>
+
+  <p class="caption">
+    <strong>Figure 1.</strong> Pipeline Overview.
+    Tailor synthesizes image-referenced garments for diverse avatars with arbitrary body shapes and topologies through a two-stage process. The first stage estimates both sewing patterns and body shape from the reference image (a), yielding a dressed template mannequin (b). The second stage dynamically optimizes the parameters of the predicted sewing patterns (d) to dress the target avatars (c), ensuring the final outputs (e) preserve the style fidelity and fit quality of the reference.
+  </p>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════
+     BIBTEX
+════════════════════════════════════════════════ -->
+<section id="bibtex">
+  <p class="section-label">Citation</p>
+  <h2 class="section-title">BibTeX</h2>
+
+  <div class="bibtex-wrap">
+    <button class="copy-btn" onclick="copyBibtex(this)">Copy</button>
+    <pre id="bibtex-block">@article{wang2026what,
+  author={Wang, Zan and Li, Anqi and Li, Yixuan and Liang, Wei and Ning, Bing},
+  journal={IEEE Transactions on Visualization and Computer Graphics}, 
+  title={What You See Is What You Wear: Crafting Garments for Diverse Avatars with Consistent Wearing Effects}, 
+  year={2026},
+  volume={32},
+  number={5},
+  pages={4408-4418},
+  doi={10.1109/TVCG.2026.3680706}
+}</pre>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════ -->
+<footer>
+  <p>
+    &copy; 2025 The Authors. This work is licensed under
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.
+  </p>
+  <p style="margin-top: 6px;">
+    Website template inspired by common academic project pages. &ensp;|&ensp;
+    Contact: <a href="mailto:placeholder@university.edu">zanwang98@gmail.com</a>
+  </p>
+</footer>
+
+<script>
+  function copyBibtex(btn) {
+    const text = document.getElementById('bibtex-block').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
